@@ -214,14 +214,18 @@
 四、运行截图
 ##
 
-![Image text]
-![Image text] 
-![Image text] 
-![Image text] 
+![Image text](https://github.com/DynaMical-RX/GUI/blob/master/1.1.png)
+![Image text](https://github.com/DynaMical-RX/GUI/blob/master/1.2.png)
+![Image text](https://github.com/DynaMical-RX/GUI/blob/master/1.3.png)
+![Image text](https://github.com/DynaMical-RX/GUI/blob/master/1.4.png)
+![Image text](https://github.com/DynaMical-RX/GUI/blob/master/1.5.png)
+![Image text](https://github.com/DynaMical-RX/GUI/blob/master/4.png)
+![Image text](https://github.com/DynaMical-RX/GUI/blob/master/4.1.png)
+![Image text](https://github.com/DynaMical-RX/GUI/blob/master/5.png)
 
-五、说明
+五、备注
 ##
-学生选课系统，可以进行账号注册，并将账号信息存在txt中，利用注册的账号进行登录选课，登录验证等，选课信息同样存在txt中，可以进行修改。更新txt即可。  
+学生选课系统能够进行账号注册，然后将账号信息存在txt文件中在登录时进行验证以及选课信息验证，利用注册好的账号进行登录到选课界面，进行录入信息选课，退课等，选课信息同样存在于txt文件中，可以进行修改更新txt文件进行查询。 
 六、编程感想
 ##
-这次编程花费时间比较久，特别是信息的存储，还有就是信息的时候，比如你注册的时候，写入的姓名，学号，密码，三个信息，存的时候吧他全部存进去，然后取的时候，要取姓名和密码，不知道怎么实现，取的时候只能一通取出来，还有就是io流存放信息，容易出现乱码，在编写的时候要注意统一。
+此次GUI界面实现的学生选课用了注册登录验证存放用户数据信息在txt文件里，在通过对事件的监听来验证输入的信息。以及用到了对内容面板的设计布局以及嵌套行列等设置。通过Scanner容器、ActionListener监听等使用查找相关资料对代码的完善补足。这次了解了代码的套用性try catch的获取判断等使用方便性，还需要多练才可以更加熟练。熟能生巧这样才能学到更多，举一反三。谢谢查阅。
