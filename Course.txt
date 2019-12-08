@@ -1,0 +1,230 @@
+import java.io.*;
+import java.util.*;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
+
+
+public class Course extends JFrame{
+    //事件监听的对象要设为全局变量
+    JTextField jtf;
+    JTextField jta;
+    JTextField jti;
+    JRadioButton rb1;
+    JRadioButton rb2;
+    JCheckBox cb1;
+    JCheckBox cb2;
+    JCheckBox cb3;
+    JComboBox<String> t1,t2,t3;
+ // 定义组件
+    private static final long serialVersionUID = 1L;
+    private JPanel contentPane;
+    
+    
+    public Course() {
+        super("学生选课界面");
+        //标签、按钮
+        JLabel lb1 = new JLabel("姓名：");
+        jtf = new JTextField(15);
+        JLabel lb2 = new JLabel("学号：");
+        jta = new JTextField(15);
+        JLabel lb3 = new JLabel("选课信息：");
+        jti = new JTextField(30);
+        jti.setEditable(false);//文本框设置为不可编辑
+//        JLabel lb4 = new JLabel("男");
+        rb1 = new JRadioButton("男");
+//        JLabel lb5 = new JLabel("女");
+        rb2 = new JRadioButton("女");
+        ButtonGroup bts=new ButtonGroup();                   // 单选按钮需要加入到同一个ButonGroup中才能生效
+        bts.add(rb1);
+        bts.add(rb2);
+//        JLabel lb6 = new JLabel("A");
+        cb1 = new JCheckBox("A课");
+//        JLabel lb7 = new JLabel("B");
+        cb2 = new JCheckBox("B课");
+//        JLabel lb8 = new JLabel("C");
+        cb3 = new JCheckBox("C课");
+//        JLabel lb9 = new JLabel("a");
+        t1 = new JComboBox<String>();
+        t1.setModel(new DefaultComboBoxModel<String>(new String[]{"阿a老师","阿b老师","阿c老师"}));
+//        JLabel lb10 = new JLabel("b");
+        t2 = new JComboBox<String>();
+        t2.setModel(new DefaultComboBoxModel<String>(new String[]{"阿a老师","阿b老师","阿c老师"}));
+//        JLabel lb11 = new JLabel("c");
+        t3 = new JComboBox<String>();
+        t3.setModel(new DefaultComboBoxModel<String>(new String[]{"阿a老师","阿b老师","阿c老师"}));
+
+
+        
+        JButton b1 = new JButton("确定");
+        JButton b2 = new JButton("重置");
+        JButton b3 = new JButton("关闭");
+        JButton b4 = new JButton("退课");
+
+
+
+        ///监听事件注册
+        DataFind mm = new DataFind();
+        b1.addActionListener(mm);
+
+        //重置按钮事件
+        b2.addActionListener(
+                new ActionListener(){
+                    public void actionPerformed(ActionEvent ee){
+                        jtf.setText(" ");
+                        jta.setText(" ");
+                        jti.setText(" ");
+                        rb1.setSelected(false);
+                        rb2.setSelected(false);
+                        cb1.setSelected(false);
+                        t1.setSelectedIndex(0);
+                        cb2.setSelected(false);
+                        t2.setSelectedIndex(0);
+                        cb3.setSelected(false);
+                        t3.setSelectedIndex(0);
+                    }
+                });
+
+        //关闭按钮事件
+        b3.addActionListener(
+                new ActionListener(){
+                    public void actionPerformed(ActionEvent ee){
+                        System.exit(0);
+                    }
+                });
+
+        //容器,添加
+        contentPane=new JPanel();                           // 内容面板
+        contentPane.setBorder(new EmptyBorder(9, 9, 9, 9));
+        contentPane.setLayout(new BorderLayout(0, 0));      // 设置布局
+        setContentPane(contentPane);
+        JPanel p=new JPanel(new GridLayout(9, 3,9,10));  // 5行1列的表格布局
+        p.setBorder(new TitledBorder(null,"",TitledBorder.LEADING ,TitledBorder.TOP,null,null));
+        contentPane.add(p,BorderLayout.CENTER);          // 给panel添加边框
+        
+     // 第一行
+        JPanel p1=new JPanel();
+        p.add(p1);
+        p1.add(lb1);
+        jtf=new JTextField();
+        p1.add(jtf);
+        jtf.setColumns(10);
+        p1.add(lb2);
+        jta=new JTextField();
+        jta.setColumns(10);
+        p1.add(jta);       
+        p1.add(rb1);
+        rb1.setSelected(true);                               // 设置单选按钮中，默认选中的按钮
+        p1.add(rb2);
+        // 第二行
+        JPanel p2=new JPanel();
+        p.add(p2); 
+        p2.add(cb1);
+        p2.add(t1);
+        // 第三行
+        JPanel p3=new JPanel();
+        p.add(p3);
+        p3.add(cb2);
+        p3.add(t2);
+        //第四行
+        JPanel p4=new JPanel();
+        p.add(p4);
+        p4.add(cb3);
+        p4.add(t3);
+        // 第五行
+        JPanel p5=new JPanel();
+        p.add(p5);
+        p5.add(b1);
+        p5.add(b2);
+        p5.add(b3);
+        p5.add(b4);
+        //第六行
+        JPanel p6=new JPanel();
+        p.add(p6);
+        p6.add(lb3);
+        p6.add(jti);
+        
+
+
+
+        getContentPane().add(p);
+        setSize(500,450);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
+
+    }
+    public static void main(String[] args) {
+
+        new Course();
+    }
+
+
+    //事件监听
+    class DataFind implements ActionListener{
+        public void actionPerformed(ActionEvent e) {
+//            String str0 = jtf.getText();
+//            String str1 = jta.getText();
+            String xinxi = jti.getText();  // 选课信息
+            boolean find = false;
+            FileWriter fw = null;
+            String ss="";
+            StringBuilder info=new StringBuilder();
+            String name=jtf.getText();
+            String num=jta.getText();
+            String sex;
+            if(rb1.isSelected()){
+                sex="男";
+            }else {
+                sex="女";
+            }
+            info.append(name+num+sex);
+            if(cb1.isSelected()){
+                String c=cb1.getText();
+                String t=t1.getSelectedItem().toString();
+                info.append(":"+c+"-"+t);
+            }
+            if(cb2.isSelected()){
+                String c=cb2.getText();
+                String t=t2.getSelectedItem().toString();
+                info.append(","+c+"-"+t);
+            }
+            if(cb3.isSelected()){
+                String c=cb3.getText();
+                String t=t3.getSelectedItem().toString();
+                info.append(","+c+"-"+t);
+            }
+            jti.setText(info.toString());                     // 把学生信息和选课信息放到文本框中               
+        
+            //选课信息录入123文本
+            try {
+                Scanner sc = new Scanner(new File("123.txt"));
+                while(sc.hasNextLine()) {
+                    ss = sc.nextLine();
+                    String[] strings = ss.split(" ");
+                    if(strings[0].equals(xinxi)) {
+                        find = true;
+                        break;
+                    }
+
+                }
+                if(find)
+                    JOptionPane.showMessageDialog(null,"该课已存在");
+                else{
+                    JOptionPane.showMessageDialog(null,"添加课成功");
+                    String store = xinxi + " " ;
+                    File file = new File("123.txt");
+                    fw = new FileWriter(file, true);
+                    fw.write("\n");
+                    fw.write(store);
+                    fw.close();
+                }
+
+            } catch (Exception e2) {
+                // TODO: handle exception
+            }
+            
+        }
+    }}
